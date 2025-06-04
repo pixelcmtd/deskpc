@@ -62,7 +62,7 @@ void setup() {
 
 void loop() {
   digitalWrite(U_REF_PIN, HIGH);
-  delay(10);
+  delay(1);
   float r = resistance(analogRead(PROBE_PIN));
   digitalWrite(U_REF_PIN, LOW);
   float t = temp(r);
