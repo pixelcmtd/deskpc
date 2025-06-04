@@ -63,12 +63,13 @@ void setup() {
 void loop() {
   digitalWrite(U_REF_PIN, HIGH);
   delay(1);
-  float r = resistance(analogRead(PROBE_PIN));
+  int adc = analogRead(PROBE_PIN);
+  float r = resistance(adc);
   digitalWrite(U_REF_PIN, LOW);
   float t = temp(r);
   float d = duty(t);
   int pwm = (int)(d * 256.0f);
-  Serial.printf("%.2f Ω, %.2f ℃, %.2f%% (%d)\n", r, t, d, pwm);
+  Serial.printf("%8.1f Ω (%04x)    %.2f ℃    %.2f%% (%d)\n", r, adc, t, d, pwm);
   analogWrite(FAN_PIN, pwm);
   delay(42);
 }
