@@ -13,10 +13,15 @@
 //        potential, or all of the above)
 
 // https://download.alphacool.com/legacy/kOhm_Sensor_Table_Alphacool.pdf
+const float Rmax = 20000.0f;
 constexpr float R25 = 10000.0f;
 constexpr float R50 = 4157.0f;
+const float Rmin = 1000.0f;
 
-// TODO: https://en.wikipedia.org/wiki/Steinhart–Hart_equation
+// const float A = 2.68437e-3;
+// const float B = 2.86e-4;
+// const float C = 9e-7;
+// TODO: T = 1 / (A + B ln R + C (ln R)³) - 273.15
 constexpr float k = (R50 - R25) / 25.0f;
 inline float temp(float r) {
   return 25.0f + (r - R25) / k;
@@ -25,13 +30,13 @@ inline float temp(float r) {
 const float R_comp = 10000.0f;
 inline float resistance(int adc) {
   float v = (float)adc / (float)(1 << ADC_BITS); // ratio from ADC reading
-  // U = v * U_ref
+  // U_comp = v * U_ref
   // U_ref = I * (R + R_comp)
-  // R = ((v * U_ref) / U_ref) * (R + R_comp)
-  // R = v * (R + R_comp) = v * R + v * R_romp
-  // R * (1 - v) = v * R_comp
-  // R = v * R_comp / (1 - v)
-  return v * R_comp / (1.0f - v);
+  // R = U / U_ref * R_tot = ((U_ref - (v * U_ref)) / U_ref) * (R + R_comp)
+  // R = (1 - v) * (R + R_comp)
+  // R = (1 - v) * R_comp / v    | idfk what my CAS did
+  float r = (1.0f - v) * R_comp / v;
+  return r > Rmax ? Rmax : r < Rmin ? Rmin : r;
 }
 
 inline float duty(float t) {
