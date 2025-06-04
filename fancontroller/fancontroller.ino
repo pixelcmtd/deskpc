@@ -19,7 +19,7 @@ constexpr float R50 = 4157.0f;
 // TODO: https://en.wikipedia.org/wiki/Steinhart–Hart_equation
 constexpr float k = (R50 - R25) / 25.0f;
 inline float temp(float r) {
-  return 25.0f + (r - R25) * k;
+  return 25.0f + (r - R25) / k;
 }
 
 const float R_comp = 10000.0f;
