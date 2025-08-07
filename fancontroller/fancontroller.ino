@@ -1,9 +1,11 @@
+#include <math.h>
+
 #define ADC_BITS 16
 #define PROBE_PIN 14
 #define U_REF_PIN 15
 #define FAN_PIN 20
 #define PUMP_PIN 23
-#define PUMP_POWER 110
+#define PUMP_POWER 110 // max 256
 
 // NOTE: all the code could be "manually compiled" to operate on ints instead of
 //       floats, which would probably yield a big performance improvement. however,
@@ -18,13 +20,12 @@ constexpr float R25 = 10000.0f;
 constexpr float R50 = 4157.0f;
 const float Rmin = 1000.0f;
 
-// const float A = 2.68437e-3;
-// const float B = 2.86e-4;
-// const float C = 9e-7;
-// TODO: T = 1 / (A + B ln R + C (ln R)³) - 273.15
-constexpr float k = (R50 - R25) / 25.0f;
+const float A = 2.68437e-3;
+const float B = 2.86e-4;
+const float C = 9e-7;
 inline float temp(float r) {
-  return 25.0f + (r - R25) / k;
+  float lnR = logf(r);
+  return 1 / (A + B * lnR + C * lnR * lnR * lnR) - 273.15;
 }
 
 const float R_comp = 10000.0f;
