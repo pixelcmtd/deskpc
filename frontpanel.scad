@@ -19,7 +19,7 @@ module sunkscrew(pos, length, invert=false) {
   union() {
     translate([pos.x, pos.y-2, pos.z+2])
       rotate([0, 90, 0])
-      CMRoundCube([4, length+4, 10], r=2, 3d=false);
+      CMRoundCube([3.5, length+4, 10], r=1.75, 3d=false);
     translate([invert ? pos.x+10 : pos.x-100, pos.y-5, pos.z+5])
       rotate([0, 90, 0])
       CMRoundCube([10, length+10, 100], r=5, 3d=false);
@@ -33,8 +33,9 @@ module sunkscrew(pos, length, invert=false) {
 difference() {
   union() {
     CMRoundCube([165, 160, 205], r=5, 3d=false);
-    translate([-10, 50, 0])
-      CMRoundCube([185, 50, 5], r=5, 3d=false);
+    for(y = [0, 150])
+      translate([-10, y, 0])
+        CMRoundCube([185, 10, 5], r=5, 3d=false);
   }
 
   translate([(165-146.55)/2, 0, 0])
@@ -53,12 +54,12 @@ difference() {
   // kvm
   translate([10, 0, 110])
     cube([145, 160, 58]);
-  translate([2.5, 10, 110])
+  translate([2.5, 7, 110])
     cube([160, 103, 58]);
 
   // tb4 dock
-  translate([10, 10, 174])
-    cube([142, 115, 45]);
+  translate([10, 5, 174])
+    cube([142, 114.5, 45]);
   translate([15, 0, 174])
     cube([132, 160, 45]);
 
@@ -76,7 +77,7 @@ difference() {
       translate([125.75+x, y, 76.6+1.35])
         CMInsertM2();
 
-  // 12v + ground
+  // 12v + (psu) ground + (esd) earth
   for(x = [122.5, 135, 147.5])
     translate([x, 0, 57])
       rotate([-90, 0, 0])
@@ -96,7 +97,7 @@ difference() {
 
   // wood screws
   for(x = [-5, 170])
-    for(y = [60, 90])
+    for(y = [5, 155])
       translate([x, y, 5])
         rotate([180, 0, 0])
         CMCountersunk(l=5, ds=4);
