@@ -11,8 +11,9 @@ union() {
         CMCountersunk(l=5, ds=4);
   }
 
-  translate([10, 10, 0])
-    cube([30, 5, 15]);
+  translate([10, 15, 0])
+    rotate([90, 0, 0])
+    CMRoundCube([30, 35, 5], r=4, 3d=false);
 
   translate([25, 15, 0])
     rotate([90, 0, 0])
@@ -22,9 +23,9 @@ union() {
         translate([-6, 80, 0])
           CMRoundCube([14, 60, 5], r=4, 3d=false);
       }
-      translate([-9, 83, 2])
-        CMRoundCube([12, 54, 3], r=3, 3d=false);
-      translate([-4, 84, 0])
-        CMRoundCube([3, 52, 2], r=1.5, 3d=false);
+      translate([-9, 83, 3])
+        CMRoundCube([12, 54, 2], r=3, 3d=false);
+      translate([-4.1, 84, 0])
+        CMRoundCube([3.2, 52, 3], r=1.5, 3d=false);
     }
 }
