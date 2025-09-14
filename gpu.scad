@@ -18,13 +18,13 @@ union() {
     rotate([90, 0, 0])
     difference() {
       union() {
-        CMRoundCube([8, 130, 5], r=4, 3d=false);
-        translate([-6, 70, 0])
+        CMRoundCube([8, 140, 5], r=4, 3d=false);
+        translate([-6, 80, 0])
           CMRoundCube([14, 60, 5], r=4, 3d=false);
       }
-      translate([-9, 73, 2])
+      translate([-9, 83, 2])
         CMRoundCube([12, 54, 3], r=3, 3d=false);
-      translate([-4, 74, 0])
+      translate([-4, 84, 0])
         CMRoundCube([3, 52, 2], r=1.5, 3d=false);
     }
 }

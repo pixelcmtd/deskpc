@@ -36,12 +36,12 @@ union() {
   for(pos = posts)
     difference() {
       translate([pos.x, pos.y, 5])
-        cylinder(15, d=10);
-      translate([pos.x, pos.y, 20])
-        CMInsertM3(15);
+        cylinder(25, d=10);
+      translate([pos.x, pos.y, 30])
+        CMInsertM3(25);
     }
 
-  translate([0, 0, 20])
+  translate([0, 0, 30])
     difference() {
       union() {
         CMFrame(concat(posts, [for (x = [16.5, 298.5], y = [78.7:25.4*2:230]) each [[x, y]],
